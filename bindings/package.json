@@ -7,12 +7,12 @@
     "clean": "npm run clean:gyp && npm run clean:libduckdb && npm run clean:package",
     "clean:gyp": "node-gyp clean",
     "clean:libduckdb": "rimraf libduckdb",
-    "clean:package": "rimraf pkgs/@duckdb/**/*.node pkgs/@duckdb/**/*.so pkgs/@duckdb/**/*.dylib pkgs/@duckdb/**/*.dll",
+    "clean:package": "rimraf pkgs/@hanzala-databrain/**/*.node pkgs/@hanzala-databrain/**/*.so pkgs/@hanzala-databrain/**/*.dylib pkgs/@hanzala-databrain/**/*.dll",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@duckdb/node-bindings": "workspace:*",
+    "@hanzala-databrain/node-bindings": "workspace:*",
     "cross-replace": "^0.2.0",
     "node-addon-api": "^8.3.0",
     "node-gyp": "^10.3.1",

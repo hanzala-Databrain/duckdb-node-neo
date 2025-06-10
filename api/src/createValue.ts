@@ -1,6 +1,6 @@
-import duckdb, { Value } from '@duckdb/node-bindings';
-import { DuckDBType } from './DuckDBType';
-import { DuckDBTypeId } from './DuckDBTypeId';
+import duckdb, { Value } from "@hanzala-databrain/node-bindings";
+import { DuckDBType } from "./DuckDBType";
+import { DuckDBTypeId } from "./DuckDBTypeId";
 import {
   DuckDBArrayValue,
   DuckDBBitValue,
@@ -19,7 +19,7 @@ import {
   DuckDBTimeValue,
   DuckDBUUIDValue,
   DuckDBValue,
-} from './values';
+} from "./values";
 
 export function createValue(type: DuckDBType, input: DuckDBValue): Value {
   if (input === null) {
@@ -28,57 +28,57 @@ export function createValue(type: DuckDBType, input: DuckDBValue): Value {
   const { typeId } = type;
   switch (typeId) {
     case DuckDBTypeId.BOOLEAN:
-      if (typeof input === 'boolean') {
+      if (typeof input === "boolean") {
         return duckdb.create_bool(input);
       }
       throw new Error(`input is not a boolean`);
     case DuckDBTypeId.TINYINT:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_int8(input);
       }
       throw new Error(`input is not a number`);
     case DuckDBTypeId.SMALLINT:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_int16(input);
       }
       throw new Error(`input is not a number`);
     case DuckDBTypeId.INTEGER:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_int32(input);
       }
       throw new Error(`input is not a number`);
     case DuckDBTypeId.BIGINT:
-      if (typeof input === 'bigint') {
+      if (typeof input === "bigint") {
         return duckdb.create_int64(input);
       }
       throw new Error(`input is not a bigint`);
     case DuckDBTypeId.UTINYINT:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_uint8(input);
       }
       throw new Error(`input is not a number`);
     case DuckDBTypeId.USMALLINT:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_uint16(input);
       }
       throw new Error(`input is not a number`);
     case DuckDBTypeId.UINTEGER:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_uint32(input);
       }
       throw new Error(`input is not a number`);
     case DuckDBTypeId.UBIGINT:
-      if (typeof input === 'bigint') {
+      if (typeof input === "bigint") {
         return duckdb.create_uint64(input);
       }
       throw new Error(`input is not a bigint`);
     case DuckDBTypeId.FLOAT:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_float(input);
       }
       throw new Error(`input is not a number`);
     case DuckDBTypeId.DOUBLE:
-      if (typeof input === 'number') {
+      if (typeof input === "number") {
         return duckdb.create_double(input);
       }
       throw new Error(`input is not a number`);
@@ -103,17 +103,17 @@ export function createValue(type: DuckDBType, input: DuckDBValue): Value {
       }
       throw new Error(`input is not a DuckDBIntervalValue`);
     case DuckDBTypeId.HUGEINT:
-      if (typeof input === 'bigint') {
+      if (typeof input === "bigint") {
         return duckdb.create_hugeint(input);
       }
       throw new Error(`input is not a bigint`);
     case DuckDBTypeId.UHUGEINT:
-      if (typeof input === 'bigint') {
+      if (typeof input === "bigint") {
         return duckdb.create_uhugeint(input);
       }
       throw new Error(`input is not a bigint`);
     case DuckDBTypeId.VARCHAR:
-      if (typeof input === 'string') {
+      if (typeof input === "string") {
         return duckdb.create_varchar(input);
       }
       throw new Error(`input is not a string`);
@@ -143,7 +143,7 @@ export function createValue(type: DuckDBType, input: DuckDBValue): Value {
       }
       throw new Error(`input is not a DuckDBTimestampNanosecondsValue`);
     case DuckDBTypeId.ENUM:
-      if (typeof input === 'string') {
+      if (typeof input === "string") {
         return duckdb.create_enum_value(
           type.toLogicalType().logical_type,
           type.indexForValue(input)
@@ -154,7 +154,7 @@ export function createValue(type: DuckDBType, input: DuckDBValue): Value {
       if (input instanceof DuckDBListValue) {
         if (type.valueType.typeId === DuckDBTypeId.ANY) {
           throw new Error(
-            'Cannot create lists with item type of ANY. Specify a specific type.'
+            "Cannot create lists with item type of ANY. Specify a specific type."
           );
         }
         return duckdb.create_list_value(
@@ -171,7 +171,7 @@ export function createValue(type: DuckDBType, input: DuckDBValue): Value {
           )
         ) {
           throw new Error(
-            'Cannot create structs with an entry type of ANY. Specify a specific type.'
+            "Cannot create structs with an entry type of ANY. Specify a specific type."
           );
         }
         return duckdb.create_struct_value(
@@ -188,7 +188,7 @@ export function createValue(type: DuckDBType, input: DuckDBValue): Value {
       if (input instanceof DuckDBArrayValue) {
         if (type.valueType.typeId === DuckDBTypeId.ANY) {
           throw new Error(
-            'Cannot create arrays with item type of ANY. Specify a specific type.'
+            "Cannot create arrays with item type of ANY. Specify a specific type."
           );
         }
         return duckdb.create_array_value(
@@ -224,7 +224,7 @@ export function createValue(type: DuckDBType, input: DuckDBValue): Value {
         `Cannot create values of type ANY. Specify a specific type.`
       );
     case DuckDBTypeId.VARINT:
-      if (typeof input === 'bigint') {
+      if (typeof input === "bigint") {
         return duckdb.create_varint(input);
       }
       throw new Error(`input is not a bigint`);

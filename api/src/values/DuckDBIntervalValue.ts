@@ -1,5 +1,5 @@
-import { Interval } from '@duckdb/node-bindings';
-import { getDuckDBIntervalString } from '../conversion/dateTimeStringConversion';
+import { Interval } from "@hanzala-databrain/node-bindings";
+import { getDuckDBIntervalString } from "../conversion/dateTimeStringConversion";
 
 export class DuckDBIntervalValue implements Interval {
   public readonly months: number;
@@ -17,6 +17,10 @@ export class DuckDBIntervalValue implements Interval {
   }
 }
 
-export function intervalValue(months: number, days: number, micros: bigint): DuckDBIntervalValue {
+export function intervalValue(
+  months: number,
+  days: number,
+  micros: bigint
+): DuckDBIntervalValue {
   return new DuckDBIntervalValue(months, days, micros);
 }

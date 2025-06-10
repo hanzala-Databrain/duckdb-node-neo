@@ -1,7 +1,7 @@
-import duckdb from '@duckdb/node-bindings';
-import { createValue } from './createValue';
-import { DuckDBDataChunk } from './DuckDBDataChunk';
-import { DuckDBLogicalType } from './DuckDBLogicalType';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { createValue } from "./createValue";
+import { DuckDBDataChunk } from "./DuckDBDataChunk";
+import { DuckDBLogicalType } from "./DuckDBLogicalType";
 import {
   BIT,
   DECIMAL,
@@ -17,8 +17,8 @@ import {
   TIMETZ,
   UUID,
   VARINT,
-} from './DuckDBType';
-import { typeForValue } from './typeForValue';
+} from "./DuckDBType";
+import { typeForValue } from "./typeForValue";
 import {
   arrayValue,
   DuckDBArrayValue,
@@ -39,7 +39,7 @@ import {
   DuckDBValue,
   listValue,
   structValue,
-} from './values';
+} from "./values";
 
 export class DuckDBAppender {
   private readonly appender: duckdb.Appender;

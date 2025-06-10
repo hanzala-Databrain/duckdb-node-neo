@@ -1,6 +1,6 @@
-import duckdb from '@duckdb/node-bindings';
-import { ExpectedLogicalType } from './ExpectedLogicalType';
-import { ExpectedVector } from './ExpectedVector';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { ExpectedLogicalType } from "./ExpectedLogicalType";
+import { ExpectedVector } from "./ExpectedVector";
 
 export interface ExpectedColumn {
   name: string;

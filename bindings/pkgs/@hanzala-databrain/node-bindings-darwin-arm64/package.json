@@ -1,9 +1,9 @@
 {
-  "name": "@duckdb/node-bindings-linux-arm64",
+  "name": "@hanzala-databrain/node-bindings-darwin-arm64",
   "version": "1.3.0-alpha.21",
   "license": "MIT",
   "os": [
-    "linux"
+    "darwin"
   ],
   "cpu": [
     "arm64"

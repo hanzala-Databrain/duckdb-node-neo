@@ -1,5 +1,5 @@
-import duckdb, { Time, TimeParts } from '@duckdb/node-bindings';
-import { getDuckDBTimeStringFromMicrosecondsInDay } from '../conversion/dateTimeStringConversion';
+import duckdb, { Time, TimeParts } from "@hanzala-databrain/node-bindings";
+import { getDuckDBTimeStringFromMicrosecondsInDay } from "../conversion/dateTimeStringConversion";
 
 export type { TimeParts };
 
@@ -22,12 +22,14 @@ export class DuckDBTimeValue implements Time {
     return new DuckDBTimeValue(duckdb.to_time(parts).micros);
   }
 
-  public static readonly Max = new DuckDBTimeValue(24n * 60n * 60n * 1000n * 1000n);
+  public static readonly Max = new DuckDBTimeValue(
+    24n * 60n * 60n * 1000n * 1000n
+  );
   public static readonly Min = new DuckDBTimeValue(0n);
 }
 
 export function timeValue(microsOrParts: bigint | TimeParts): DuckDBTimeValue {
-  if (typeof microsOrParts === 'bigint') {
+  if (typeof microsOrParts === "bigint") {
     return new DuckDBTimeValue(microsOrParts);
   }
   return DuckDBTimeValue.fromParts(microsOrParts);

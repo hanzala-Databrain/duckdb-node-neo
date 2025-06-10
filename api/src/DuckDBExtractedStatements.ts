@@ -1,6 +1,6 @@
-import duckdb from '@duckdb/node-bindings';
-import { DuckDBPreparedStatement } from './DuckDBPreparedStatement';
-import { DuckDBPreparedStatementCollection } from './DuckDBPreparedStatementCollection';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { DuckDBPreparedStatement } from "./DuckDBPreparedStatement";
+import { DuckDBPreparedStatementCollection } from "./DuckDBPreparedStatementCollection";
 
 export class DuckDBExtractedStatements {
   private readonly connection: duckdb.Connection;

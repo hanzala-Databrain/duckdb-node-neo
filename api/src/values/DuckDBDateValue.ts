@@ -1,5 +1,5 @@
-import duckdb, { Date_, DateParts } from '@duckdb/node-bindings';
-import { getDuckDBDateStringFromDays } from '../conversion/dateTimeStringConversion';
+import duckdb, { Date_, DateParts } from "@hanzala-databrain/node-bindings";
+import { getDuckDBDateStringFromDays } from "../conversion/dateTimeStringConversion";
 
 export type { DateParts };
 
@@ -36,7 +36,7 @@ export class DuckDBDateValue implements Date_ {
 }
 
 export function dateValue(daysOrParts: number | DateParts): DuckDBDateValue {
-  if (typeof daysOrParts === 'number') {
+  if (typeof daysOrParts === "number") {
     return new DuckDBDateValue(daysOrParts);
   }
   return DuckDBDateValue.fromParts(daysOrParts);

@@ -1,6 +1,9 @@
-import duckdb, { Timestamp, TimestampParts } from '@duckdb/node-bindings';
-import { getDuckDBTimestampStringFromMicroseconds } from '../conversion/dateTimeStringConversion';
-import { DuckDBTimestampMillisecondsValue } from './DuckDBTimestampMillisecondsValue';
+import duckdb, {
+  Timestamp,
+  TimestampParts,
+} from "@hanzala-databrain/node-bindings";
+import { getDuckDBTimestampStringFromMicroseconds } from "../conversion/dateTimeStringConversion";
+import { DuckDBTimestampMillisecondsValue } from "./DuckDBTimestampMillisecondsValue";
 
 export type { TimestampParts };
 
@@ -26,10 +29,12 @@ export class DuckDBTimestampValue implements Timestamp {
   public static fromParts(parts: TimestampParts): DuckDBTimestampValue {
     return new DuckDBTimestampValue(duckdb.to_timestamp(parts).micros);
   }
-  
+
   public static readonly Epoch = new DuckDBTimestampValue(0n);
   public static readonly Max = new DuckDBTimestampValue(2n ** 63n - 2n);
-  public static readonly Min = new DuckDBTimestampValue(DuckDBTimestampMillisecondsValue.Min.millis * 1000n);
+  public static readonly Min = new DuckDBTimestampValue(
+    DuckDBTimestampMillisecondsValue.Min.millis * 1000n
+  );
   public static readonly PosInf = new DuckDBTimestampValue(2n ** 63n - 1n);
   public static readonly NegInf = new DuckDBTimestampValue(-(2n ** 63n - 1n));
 }
@@ -37,8 +42,10 @@ export class DuckDBTimestampValue implements Timestamp {
 export type DuckDBTimestampMicrosecondsValue = DuckDBTimestampValue;
 export const DuckDBTimestampMicrosecondsValue = DuckDBTimestampValue;
 
-export function timestampValue(microsOrParts: bigint | TimestampParts): DuckDBTimestampValue {
-  if (typeof microsOrParts === 'bigint') {
+export function timestampValue(
+  microsOrParts: bigint | TimestampParts
+): DuckDBTimestampValue {
+  if (typeof microsOrParts === "bigint") {
     return new DuckDBTimestampValue(microsOrParts);
   }
   return DuckDBTimestampValue.fromParts(microsOrParts);
