@@ -78,7 +78,7 @@ jobs:
   linux_x64:
     name: Linux x64
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.linux_x64 }}
+    if: ${{ inputs.linux_x64 }}
     steps:
       - uses: actions/checkout@v4
 
@@ -136,7 +136,7 @@ jobs:
   linux_arm64:
     name: Linux arm64
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.linux_arm64 }}
+    if: ${{ inputs.linux_arm64 }}
     env:
       TARGET_ARCH: arm64
       CC: aarch64-linux-gnu-gcc
@@ -175,7 +175,7 @@ jobs:
   macos_arm64:
     name: Mac OS X arm64
     runs-on: macos-latest
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.macos_arm64 }}
+    if: ${{ inputs.macos_arm64 }}
     steps:
       - uses: actions/checkout@v4
 
@@ -217,7 +217,7 @@ jobs:
   macos_x64:
     name: Mac OS X x64
     runs-on: macos-13
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.macos_x64 }}
+    if: ${{ inputs.macos_x64 }}
     steps:
       - uses: actions/checkout@v4
 
@@ -259,7 +259,7 @@ jobs:
   windows_x64:
     name: Windows x64
     runs-on: windows-latest
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.windows_x64 }}
+    if: ${{ inputs.windows_x64 }}
     steps:
       - uses: actions/checkout@v4
 
