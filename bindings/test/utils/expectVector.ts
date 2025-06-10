@@ -1,4 +1,4 @@
-import duckdb from "@";
+import duckdb from "@hanzala-databrain/node-bindings";
 import { expect } from "vitest";
 import { ExpectedLogicalType } from "./ExpectedLogicalType";
 import { UTINYINT } from "./expectedLogicalTypes";
