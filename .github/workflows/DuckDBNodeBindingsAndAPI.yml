@@ -4,17 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       publish:
-        description: 'Publish'
+        description: "Publish"
         type: boolean
         required: true
         default: false
       publish_dry_run:
-        description: 'Publish Dry Run'
+        description: "Publish Dry Run"
         type: boolean
         required: true
         default: true
       linux_x64:
-        description: 'Run on Linux x64'
+        description: "Run on Linux x64"
         type: boolean
         required: true
         default: false
@@ -34,7 +34,7 @@ on:
       #   required: true
       #   default: false
       linux_arm64:
-        description: 'Run on Linux arm64'
+        description: "Run on Linux arm64"
         type: boolean
         required: true
         default: false
@@ -44,7 +44,7 @@ on:
       #   required: true
       #   default: false
       macos_arm64:
-        description: 'Run on Mac OS X arm64'
+        description: "Run on Mac OS X arm64"
         type: boolean
         required: true
         default: false
@@ -54,12 +54,12 @@ on:
       #   required: true
       #   default: false
       macos_x64:
-        description: 'Run on Mac OS X x64'
+        description: "Run on Mac OS X x64"
         type: boolean
         required: true
         default: false
       windows_x64:
-        description: 'Run on Windows x64'
+        description: "Run on Windows x64"
         type: boolean
         required: true
         default: false
@@ -75,54 +75,55 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-
   linux_x64:
     name: Linux x64
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.linux_x64 }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-      
+
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
 
       - name: Bindings - Build
         working-directory: bindings
         run: pnpm run build
-      
+
       - name: Bindings - Test
         working-directory: bindings
         run: pnpm test
-      
+
       - name: API - Build
         working-directory: api
         run: pnpm run build
-      
+
       - name: API - Test
         working-directory: api
         run: pnpm test
-      
+
       - name: Git Status
         if: ${{ inputs.publish }}
         run: git status
-      
+
       - name: Publish - Bindings - Linux x64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@duckdb/node-bindings-linux-x64
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-      
+          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+
       - name: Publish - Bindings
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@duckdb/node-bindings
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
+          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
 
       - name: Publish - API
         if: ${{ inputs.publish }}
@@ -130,6 +131,7 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
+          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
 
   linux_arm64:
     name: Linux arm64
@@ -139,33 +141,36 @@ jobs:
       TARGET_ARCH: arm64
       CC: aarch64-linux-gnu-gcc
       CXX: aarch64-linux-gnu-g++
+      YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+
     steps:
       - name: Install aarch64 compilers
         run: sudo apt-get update && sudo apt install binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
-      
+
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-      
+
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
 
       - name: Bindings - Build
         working-directory: bindings
         run: pnpm run build
-      
+
       - name: Git Status
         if: ${{ inputs.publish }}
         run: git status
-      
+
       - name: Publish - Bindings - Linux arm64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@duckdb/node-bindings-linux-arm64
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
+          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
 
   macos_arm64:
     name: Mac OS X arm64
@@ -173,7 +178,7 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.macos_arm64 }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
           version: 9
@@ -184,37 +189,38 @@ jobs:
       - name: Bindings - Build
         working-directory: bindings
         run: pnpm run build
-      
+
       - name: Bindings - Test
         working-directory: bindings
         run: pnpm test
-      
+
       - name: API - Build
         working-directory: api
         run: pnpm run build
-      
+
       - name: API - Test
         working-directory: api
         run: pnpm test
-      
+
       - name: Git Status
         if: ${{ inputs.publish }}
         run: git status
-      
+
       - name: Publish - Bindings - Darwin arm64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@duckdb/node-bindings-darwin-arm64
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-  
+          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+
   macos_x64:
     name: Mac OS X x64
     runs-on: macos-13
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.macos_x64 }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
           version: 9
@@ -225,29 +231,30 @@ jobs:
       - name: Bindings - Build
         working-directory: bindings
         run: pnpm run build
-      
+
       - name: Bindings - Test
         working-directory: bindings
         run: pnpm test
-      
+
       - name: API - Build
         working-directory: api
         run: pnpm run build
-      
+
       - name: API - Test
         working-directory: api
         run: pnpm test
-      
+
       - name: Git Status
         if: ${{ inputs.publish }}
         run: git status
-      
+
       - name: Publish - Bindings - Darwin x64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@duckdb/node-bindings-darwin-x64
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
+          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
 
   windows_x64:
     name: Windows x64
@@ -255,37 +262,38 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.windows_x64 }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-      
+
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
 
       - name: Bindings - Build
         working-directory: bindings
         run: pnpm run build
-      
+
       - name: Bindings - Test
         working-directory: bindings
         run: pnpm test
-      
+
       - name: API - Build
         working-directory: api
         run: pnpm run build
-      
+
       - name: API - Test
         working-directory: api
         run: pnpm test
-      
+
       - name: Git Status
         if: ${{ inputs.publish }}
         run: git status
-      
+
       - name: Publish - Bindings - Win32 x64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@duckdb/node-bindings-win32-x64
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
+          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
