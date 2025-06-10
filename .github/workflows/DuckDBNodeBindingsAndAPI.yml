@@ -121,10 +121,6 @@ jobs:
 
       - name: Publish - Bindings
         if: ${{ inputs.publish }}
-        with:
-          version: 9
-          registry-url: https://npm.pkg.github.com/
-          scope: "@hanzala-databrain"
         working-directory: bindings/pkgs/@hanzala-databrain/node-bindings
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
