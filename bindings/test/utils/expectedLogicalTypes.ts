@@ -1,4 +1,4 @@
-import duckdb from '@duckdb/node-bindings';
+import duckdb from "@hanzala-databrain/node-bindings";
 import {
   ExpectedArrayLogicalType,
   ExpectedDecimalLogicalType,
@@ -11,7 +11,7 @@ import {
   ExpectedStructLogicalType,
   ExpectedUnionAlternative,
   ExpectedUnionLogicalType,
-} from './ExpectedLogicalType';
+} from "./ExpectedLogicalType";
 
 export const BOOLEAN: ExpectedSimpleLogicalType = {
   typeId: duckdb.Type.BOOLEAN,

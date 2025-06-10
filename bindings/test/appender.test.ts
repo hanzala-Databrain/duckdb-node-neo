@@ -1,7 +1,7 @@
-import duckdb from '@duckdb/node-bindings';
-import { expect, suite, test } from 'vitest';
-import { expectLogicalType } from './utils/expectLogicalType';
-import { expectResult } from './utils/expectResult';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { expect, suite, test } from "vitest";
+import { expectLogicalType } from "./utils/expectLogicalType";
+import { expectResult } from "./utils/expectResult";
 import {
   BIGINT,
   BLOB,
@@ -23,38 +23,38 @@ import {
   USMALLINT,
   UTINYINT,
   VARCHAR,
-} from './utils/expectedLogicalTypes';
-import { data } from './utils/expectedVectors';
-import { withConnection } from './utils/withConnection';
+} from "./utils/expectedLogicalTypes";
+import { data } from "./utils/expectedVectors";
+import { withConnection } from "./utils/withConnection";
 
-suite('appender', () => {
-  test('error: no table', async () => {
+suite("appender", () => {
+  test("error: no table", async () => {
     await withConnection(async (connection) => {
       expect(() =>
-        duckdb.appender_create_ext(connection, 'memory', 'main', 'bogus_table')
+        duckdb.appender_create_ext(connection, "memory", "main", "bogus_table")
       ).toThrowError(`Table "memory.main.bogus_table" could not be found`);
     });
   });
-  test('one column', async () => {
+  test("one column", async () => {
     await withConnection(async (connection) => {
       const createResult = await duckdb.query(
         connection,
-        'create table appender_target(i integer)'
+        "create table appender_target(i integer)"
       );
       await expectResult(createResult, {
         statementType: duckdb.StatementType.CREATE,
         resultType: duckdb.ResultType.NOTHING,
         chunkCount: 0,
         rowCount: 0,
-        columns: [{ name: 'Count', logicalType: BIGINT }],
+        columns: [{ name: "Count", logicalType: BIGINT }],
         chunks: [],
       });
 
       const appender = duckdb.appender_create_ext(
         connection,
-        'memory',
-        'main',
-        'appender_target'
+        "memory",
+        "main",
+        "appender_target"
       );
       expect(duckdb.appender_column_count(appender)).toBe(1);
       const column_type = duckdb.appender_column_type(appender, 0);
@@ -68,22 +68,22 @@ suite('appender', () => {
       duckdb.appender_end_row(appender);
       duckdb.appender_flush_sync(appender);
 
-      const result = await duckdb.query(connection, 'from appender_target');
+      const result = await duckdb.query(connection, "from appender_target");
       await expectResult(result, {
         chunkCount: 1,
         rowCount: 3,
-        columns: [{ name: 'i', logicalType: INTEGER }],
+        columns: [{ name: "i", logicalType: INTEGER }],
         chunks: [
           { rowCount: 3, vectors: [data(4, [true, true, true], [11, 22, 33])] },
         ],
       });
     });
   });
-  test('multiple columns', async () => {
+  test("multiple columns", async () => {
     await withConnection(async (connection) => {
       const createResult = await duckdb.query(
         connection,
-        'create table appender_target(\
+        "create table appender_target(\
           bool boolean, \
           int8 tinyint, \
           int16 smallint, \
@@ -109,22 +109,22 @@ suite('appender', () => {
           dec38_10 decimal(38,10), \
           null_column integer, \
           integer_with_default integer default 42\
-        )'
+        )"
       );
       await expectResult(createResult, {
         statementType: duckdb.StatementType.CREATE,
         resultType: duckdb.ResultType.NOTHING,
         chunkCount: 0,
         rowCount: 0,
-        columns: [{ name: 'Count', logicalType: BIGINT }],
+        columns: [{ name: "Count", logicalType: BIGINT }],
         chunks: [],
       });
 
       const appender = duckdb.appender_create_ext(
         connection,
-        'memory',
-        'main',
-        'appender_target'
+        "memory",
+        "main",
+        "appender_target"
       );
       expect(duckdb.appender_column_count(appender)).toBe(25);
 
@@ -184,10 +184,10 @@ suite('appender', () => {
         days: 999,
         micros: 999999999n,
       });
-      duckdb.append_varchar(appender, '🦆🦆🦆🦆🦆🦆');
+      duckdb.append_varchar(appender, "🦆🦆🦆🦆🦆🦆");
       duckdb.append_blob(
         appender,
-        Buffer.from('thisisalongblob\x00withnullbytes')
+        Buffer.from("thisisalongblob\x00withnullbytes")
       );
       duckdb.append_value(
         appender,
@@ -199,11 +199,19 @@ suite('appender', () => {
       );
       duckdb.append_value(
         appender,
-        duckdb.create_decimal({ width: 18, scale: 6, value: 999999999999999999n })
+        duckdb.create_decimal({
+          width: 18,
+          scale: 6,
+          value: 999999999999999999n,
+        })
       );
       duckdb.append_value(
         appender,
-        duckdb.create_decimal({ width: 38, scale: 10, value: -99999999999999999999999999999999999999n })
+        duckdb.create_decimal({
+          width: 38,
+          scale: 10,
+          value: -99999999999999999999999999999999999999n,
+        })
       );
       duckdb.append_null(appender);
       duckdb.append_default(appender);
@@ -213,36 +221,39 @@ suite('appender', () => {
       duckdb.appender_flush_sync(appender);
       duckdb.appender_close_sync(appender);
 
-      const result = await duckdb.query(connection, 'from appender_target');
+      const result = await duckdb.query(connection, "from appender_target");
       await expectResult(result, {
         chunkCount: 1,
         rowCount: 1,
         columns: [
-          { name: 'bool', logicalType: BOOLEAN },
-          { name: 'int8', logicalType: TINYINT },
-          { name: 'int16', logicalType: SMALLINT },
-          { name: 'int32', logicalType: INTEGER },
-          { name: 'int64', logicalType: BIGINT },
-          { name: 'hugeint', logicalType: HUGEINT },
-          { name: 'uint8', logicalType: UTINYINT },
-          { name: 'uint16', logicalType: USMALLINT },
-          { name: 'uint32', logicalType: UINTEGER },
-          { name: 'uint64', logicalType: UBIGINT },
-          { name: 'uhugeint', logicalType: UHUGEINT },
-          { name: 'float', logicalType: FLOAT },
-          { name: 'double', logicalType: DOUBLE },
-          { name: 'date', logicalType: DATE },
-          { name: 'time', logicalType: TIME },
-          { name: 'timestamp', logicalType: TIMESTAMP },
-          { name: 'interval', logicalType: INTERVAL },
-          { name: 'varchar', logicalType: VARCHAR },
-          { name: 'blob', logicalType: BLOB },
-          { name: 'dec4_1', logicalType: DECIMAL(4, 1, duckdb.Type.SMALLINT) },
-          { name: 'dec9_4', logicalType: DECIMAL(9, 4, duckdb.Type.INTEGER) },
-          { name: 'dec18_6', logicalType: DECIMAL(18, 6, duckdb.Type.BIGINT) },
-          { name: 'dec38_10', logicalType: DECIMAL(38, 10, duckdb.Type.HUGEINT) },
-          { name: 'null_column', logicalType: INTEGER },
-          { name: 'integer_with_default', logicalType: INTEGER },
+          { name: "bool", logicalType: BOOLEAN },
+          { name: "int8", logicalType: TINYINT },
+          { name: "int16", logicalType: SMALLINT },
+          { name: "int32", logicalType: INTEGER },
+          { name: "int64", logicalType: BIGINT },
+          { name: "hugeint", logicalType: HUGEINT },
+          { name: "uint8", logicalType: UTINYINT },
+          { name: "uint16", logicalType: USMALLINT },
+          { name: "uint32", logicalType: UINTEGER },
+          { name: "uint64", logicalType: UBIGINT },
+          { name: "uhugeint", logicalType: UHUGEINT },
+          { name: "float", logicalType: FLOAT },
+          { name: "double", logicalType: DOUBLE },
+          { name: "date", logicalType: DATE },
+          { name: "time", logicalType: TIME },
+          { name: "timestamp", logicalType: TIMESTAMP },
+          { name: "interval", logicalType: INTERVAL },
+          { name: "varchar", logicalType: VARCHAR },
+          { name: "blob", logicalType: BLOB },
+          { name: "dec4_1", logicalType: DECIMAL(4, 1, duckdb.Type.SMALLINT) },
+          { name: "dec9_4", logicalType: DECIMAL(9, 4, duckdb.Type.INTEGER) },
+          { name: "dec18_6", logicalType: DECIMAL(18, 6, duckdb.Type.BIGINT) },
+          {
+            name: "dec38_10",
+            logicalType: DECIMAL(38, 10, duckdb.Type.HUGEINT),
+          },
+          { name: "null_column", logicalType: INTEGER },
+          { name: "integer_with_default", logicalType: INTEGER },
         ],
         chunks: [
           {
@@ -269,11 +280,11 @@ suite('appender', () => {
                 [true],
                 [{ months: 999, days: 999, micros: 999999999n }]
               ),
-              data(16, [true], ['🦆🦆🦆🦆🦆🦆']),
+              data(16, [true], ["🦆🦆🦆🦆🦆🦆"]),
               data(
                 16,
                 [true],
-                [Buffer.from('thisisalongblob\x00withnullbytes')]
+                [Buffer.from("thisisalongblob\x00withnullbytes")]
               ),
               data(2, [true], [9999]),
               data(4, [true], [999999999]),
@@ -287,32 +298,32 @@ suite('appender', () => {
       });
     });
   });
-  test('data chunk', async () => {
+  test("data chunk", async () => {
     await withConnection(async (connection) => {
       const createResult = await duckdb.query(
         connection,
-        'create table appender_target(i integer, v varchar)'
+        "create table appender_target(i integer, v varchar)"
       );
       await expectResult(createResult, {
         statementType: duckdb.StatementType.CREATE,
         resultType: duckdb.ResultType.NOTHING,
         chunkCount: 0,
         rowCount: 0,
-        columns: [{ name: 'Count', logicalType: BIGINT }],
+        columns: [{ name: "Count", logicalType: BIGINT }],
         chunks: [],
       });
 
       const appender = duckdb.appender_create_ext(
         connection,
-        'memory',
-        'main',
-        'appender_target'
+        "memory",
+        "main",
+        "appender_target"
       );
       expect(duckdb.appender_column_count(appender)).toBe(2);
 
       const source_result = await duckdb.query(
         connection,
-        'select int, varchar from test_all_types()'
+        "select int, varchar from test_all_types()"
       );
       const source_chunk = await duckdb.fetch_chunk(source_result);
       expect(source_chunk).toBeDefined();
@@ -321,20 +332,20 @@ suite('appender', () => {
       }
       duckdb.appender_flush_sync(appender);
 
-      const result = await duckdb.query(connection, 'from appender_target');
+      const result = await duckdb.query(connection, "from appender_target");
       await expectResult(result, {
         chunkCount: 1,
         rowCount: 3,
         columns: [
-          { name: 'i', logicalType: INTEGER },
-          { name: 'v', logicalType: VARCHAR },
+          { name: "i", logicalType: INTEGER },
+          { name: "v", logicalType: VARCHAR },
         ],
         chunks: [
           {
             rowCount: 3,
             vectors: [
               data(4, [true, true, false], [-2147483648, 2147483647, null]),
-              data(16, [true, true, false], ['🦆🦆🦆🦆🦆🦆', 'goo\0se', null]),
+              data(16, [true, true, false], ["🦆🦆🦆🦆🦆🦆", "goo\0se", null]),
             ],
           },
         ],

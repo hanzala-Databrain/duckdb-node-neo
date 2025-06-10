@@ -1,12 +1,12 @@
 {
-  "name": "@duckdb/node-bindings-win32-x64",
+  "name": "@hanzala-databrain/node-bindings-linux-arm64",
   "version": "1.3.0-alpha.21",
   "license": "MIT",
   "os": [
-    "win32"
+    "linux"
   ],
   "cpu": [
-    "x64"
+    "arm64"
   ],
   "repository": {
     "type": "git",

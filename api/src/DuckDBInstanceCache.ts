@@ -1,6 +1,6 @@
-import duckdb from '@duckdb/node-bindings';
-import { DuckDBInstance } from './DuckDBInstance';
-import { createConfig } from './createConfig';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { DuckDBInstance } from "./DuckDBInstance";
+import { createConfig } from "./createConfig";
 
 export class DuckDBInstanceCache {
   private readonly cache: duckdb.InstanceCache;

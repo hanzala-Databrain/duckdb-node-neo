@@ -10,9 +10,9 @@ importers:
 
   api:
     dependencies:
-      '@duckdb/node-bindings':
+      '@hanzala-databrain/node-bindings':
         specifier: workspace:*
-        version: link:../bindings/pkgs/@duckdb/node-bindings
+        version: link:../bindings/pkgs/@hanzala-databrain/node-bindings
     devDependencies:
       '@types/node':
         specifier: ^20.17.10
@@ -27,17 +27,11 @@ importers:
         specifier: ^2.1.8
         version: 2.1.8(@types/node@20.17.10)
 
-  api/pkgs/@duckdb/node-api:
-    dependencies:
-      '@duckdb/node-bindings':
-        specifier: workspace:*
-        version: link:../../../../bindings/pkgs/@duckdb/node-bindings
-
   bindings:
     dependencies:
-      '@duckdb/node-bindings':
+      '@hanzala-databrain/node-bindings':
         specifier: workspace:*
-        version: link:pkgs/@duckdb/node-bindings
+        version: link:pkgs/@hanzala-databrain/node-bindings
       cross-replace:
         specifier: ^0.2.0
         version: 0.2.0
@@ -57,33 +51,33 @@ importers:
         specifier: ^2.1.8
         version: 2.1.8(@types/node@20.17.10)
 
-  bindings/pkgs/@duckdb/node-bindings:
+  bindings/pkgs/@hanzala-databrain/node-bindings:
     optionalDependencies:
-      '@duckdb/node-bindings-darwin-arm64':
+      '@hanzala-databrain/node-bindings-darwin-arm64':
         specifier: workspace:*
         version: link:../node-bindings-darwin-arm64
-      '@duckdb/node-bindings-darwin-x64':
+      '@hanzala-databrain/node-bindings-darwin-x64':
         specifier: workspace:*
         version: link:../node-bindings-darwin-x64
-      '@duckdb/node-bindings-linux-arm64':
+      '@hanzala-databrain/node-bindings-linux-arm64':
         specifier: workspace:*
         version: link:../node-bindings-linux-arm64
-      '@duckdb/node-bindings-linux-x64':
+      '@hanzala-databrain/node-bindings-linux-x64':
         specifier: workspace:*
         version: link:../node-bindings-linux-x64
-      '@duckdb/node-bindings-win32-x64':
+      '@hanzala-databrain/node-bindings-win32-x64':
         specifier: workspace:*
         version: link:../node-bindings-win32-x64
 
-  bindings/pkgs/@duckdb/node-bindings-darwin-arm64: {}
+  bindings/pkgs/@hanzala-databrain/node-bindings-darwin-arm64: {}
 
-  bindings/pkgs/@duckdb/node-bindings-darwin-x64: {}
+  bindings/pkgs/@hanzala-databrain/node-bindings-darwin-x64: {}
 
-  bindings/pkgs/@duckdb/node-bindings-linux-arm64: {}
+  bindings/pkgs/@hanzala-databrain/node-bindings-linux-arm64: {}
 
-  bindings/pkgs/@duckdb/node-bindings-linux-x64: {}
+  bindings/pkgs/@hanzala-databrain/node-bindings-linux-x64: {}
 
-  bindings/pkgs/@duckdb/node-bindings-win32-x64: {}
+  bindings/pkgs/@hanzala-databrain/node-bindings-win32-x64: {}
 
 packages:
 

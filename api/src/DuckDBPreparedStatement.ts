@@ -1,10 +1,10 @@
-import duckdb from '@duckdb/node-bindings';
-import { createValue } from './createValue';
-import { DuckDBLogicalType } from './DuckDBLogicalType';
-import { DuckDBMaterializedResult } from './DuckDBMaterializedResult';
-import { DuckDBPendingResult } from './DuckDBPendingResult';
-import { DuckDBResult } from './DuckDBResult';
-import { DuckDBResultReader } from './DuckDBResultReader';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { createValue } from "./createValue";
+import { DuckDBLogicalType } from "./DuckDBLogicalType";
+import { DuckDBMaterializedResult } from "./DuckDBMaterializedResult";
+import { DuckDBPendingResult } from "./DuckDBPendingResult";
+import { DuckDBResult } from "./DuckDBResult";
+import { DuckDBResultReader } from "./DuckDBResultReader";
 import {
   BIT,
   DuckDBArrayType,
@@ -19,10 +19,10 @@ import {
   TIMETZ,
   UUID,
   VARINT,
-} from './DuckDBType';
-import { DuckDBTypeId } from './DuckDBTypeId';
-import { StatementType } from './enums';
-import { typeForValue } from './typeForValue';
+} from "./DuckDBType";
+import { DuckDBTypeId } from "./DuckDBTypeId";
+import { StatementType } from "./enums";
+import { typeForValue } from "./typeForValue";
 import {
   arrayValue,
   DuckDBArrayValue,
@@ -43,7 +43,7 @@ import {
   DuckDBValue,
   listValue,
   structValue,
-} from './values';
+} from "./values";
 
 export class DuckDBPreparedStatement {
   private readonly prepared_statement: duckdb.PreparedStatement;

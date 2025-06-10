@@ -6,58 +6,64 @@
 
 ### Documentation
 
-- [@duckdb/node-api](api/pkgs/@duckdb/node-api/README.md)
-- [@duckdb/node-bindings](bindings/pkgs/@duckdb/node-bindings/README.md)
-- [@duckdb/node-bindings-darwin-arm64](bindings/pkgs/@duckdb/node-bindings-darwin-arm64/README.md)
-- [@duckdb/node-bindings-darwin-x64](bindings/pkgs/@duckdb/node-bindings-darwin-x64/README.md)
-- [@duckdb/node-bindings-linux-arm64](bindings/pkgs/@duckdb/node-bindings-linux-arm64/README.md)
-- [@duckdb/node-bindings-linux-x64](bindings/pkgs/@duckdb/node-bindings-linux-x64/README.md)
-- [@duckdb/node-bindings-win32-x64](bindings/pkgs/@duckdb/node-bindings-win32-x64/README.md)
+- [@hanzala-databrain/node-api](api/pkgs/@hanzala-databrain/node-api/README.md)
+- [@hanzala-databrain/node-bindings](bindings/pkgs/@hanzala-databrain/node-bindings/README.md)
+- [@hanzala-databrain/node-bindings-darwin-arm64](bindings/pkgs/@hanzala-databrain/node-bindings-darwin-arm64/README.md)
+- [@hanzala-databrain/node-bindings-darwin-x64](bindings/pkgs/@hanzala-databrain/node-bindings-darwin-x64/README.md)
+- [@hanzala-databrain/node-bindings-linux-arm64](bindings/pkgs/@hanzala-databrain/node-bindings-linux-arm64/README.md)
+- [@hanzala-databrain/node-bindings-linux-x64](bindings/pkgs/@hanzala-databrain/node-bindings-linux-x64/README.md)
+- [@hanzala-databrain/node-bindings-win32-x64](bindings/pkgs/@hanzala-databrain/node-bindings-win32-x64/README.md)
 
 ### Published
 
-- [@duckdb/node-api](https://www.npmjs.com/package/@duckdb/node-api)
-- [@duckdb/node-bindings](https://www.npmjs.com/package/@duckdb/node-bindings)
-- [@duckdb/node-bindings-darwin-arm64](https://www.npmjs.com/package/@duckdb/node-bindings-darwin-arm64)
-- [@duckdb/node-bindings-darwin-x64](https://www.npmjs.com/package/@duckdb/node-bindings-darwin-x64)
-- [@duckdb/node-bindings-linux-arm64](https://www.npmjs.com/package/@duckdb/node-bindings-linux-arm64)
-- [@duckdb/node-bindings-linux-x64](https://www.npmjs.com/package/@duckdb/node-bindings-linux-x64)
-- [@duckdb/node-bindings-win32-x64](https://www.npmjs.com/package/@duckdb/node-bindings-win32-x64)
+- [@hanzala-databrain/node-api](https://www.npmjs.com/package/@hanzala-databrain/node-api)
+- [@hanzala-databrain/node-bindings](https://www.npmjs.com/package/@hanzala-databrain/node-bindings)
+- [@hanzala-databrain/node-bindings-darwin-arm64](https://www.npmjs.com/package/@hanzala-databrain/node-bindings-darwin-arm64)
+- [@hanzala-databrain/node-bindings-darwin-x64](https://www.npmjs.com/package/@hanzala-databrain/node-bindings-darwin-x64)
+- [@hanzala-databrain/node-bindings-linux-arm64](https://www.npmjs.com/package/@hanzala-databrain/node-bindings-linux-arm64)
+- [@hanzala-databrain/node-bindings-linux-x64](https://www.npmjs.com/package/@hanzala-databrain/node-bindings-linux-x64)
+- [@hanzala-databrain/node-bindings-win32-x64](https://www.npmjs.com/package/@hanzala-databrain/node-bindings-win32-x64)
 
 ## Development
 
 ### Setup
+
 - [Install pnpm](https://pnpm.io/installation)
 - `pnpm install`
 
 ### Build & Test Bindings
+
 - `cd bindings`
 - `pnpm run build`
 - `pnpm test`
 
 ### Build & Test API
+
 - `cd api`
 - `pnpm run build`
 - `pnpm test`
 
 ### Run API Benchmarks
+
 - `cd api`
 - `pnpm bench`
 
 ### Update Package Versions
 
 Change version in:
-- `api/pkgs/@duckdb/node-api/package.json`
-- `bindings/pkgs/@duckdb/node-bindings/package.json`
-- `bindings/pkgs/@duckdb/node-bindings-darwin-arm64/package.json`
-- `bindings/pkgs/@duckdb/node-bindings-darwin-x64/package.json`
-- `bindings/pkgs/@duckdb/node-bindings-linux-arm64/package.json`
-- `bindings/pkgs/@duckdb/node-bindings-linux-x64/package.json`
-- `bindings/pkgs/@duckdb/node-bindings-win32-x64/package.json`
+
+- `api/pkgs/@hanzala-databrain/node-api/package.json`
+- `bindings/pkgs/@hanzala-databrain/node-bindings/package.json`
+- `bindings/pkgs/@hanzala-databrain/node-bindings-darwin-arm64/package.json`
+- `bindings/pkgs/@hanzala-databrain/node-bindings-darwin-x64/package.json`
+- `bindings/pkgs/@hanzala-databrain/node-bindings-linux-arm64/package.json`
+- `bindings/pkgs/@hanzala-databrain/node-bindings-linux-x64/package.json`
+- `bindings/pkgs/@hanzala-databrain/node-bindings-win32-x64/package.json`
 
 ### Upgrade DuckDB Version
 
 Change version in:
+
 - `bindings/scripts/fetch_libduckdb_linux_amd64.py`
 - `bindings/scripts/fetch_libduckdb_linux_arm64.py`
 - `bindings/scripts/fetch_libduckdb_osx_universal.py`

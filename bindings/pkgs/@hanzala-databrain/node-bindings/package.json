@@ -1,0 +1,18 @@
+{
+  "name": "@hanzala-databrain/node-bindings",
+  "version": "1.3.0-alpha.21",
+  "license": "MIT",
+  "main": "./duckdb.js",
+  "types": "./duckdb.d.ts",
+  "optionalDependencies": {
+    "@hanzala-databrain/node-bindings-darwin-arm64": "workspace:*",
+    "@hanzala-databrain/node-bindings-darwin-x64": "workspace:*",
+    "@hanzala-databrain/node-bindings-linux-arm64": "workspace:*",
+    "@hanzala-databrain/node-bindings-linux-x64": "workspace:*",
+    "@hanzala-databrain/node-bindings-win32-x64": "workspace:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanzala-Databrain/duckdb-node-neo.git"
+  }
+}

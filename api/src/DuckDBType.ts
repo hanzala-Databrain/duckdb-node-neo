@@ -1,8 +1,8 @@
-import duckdb from '@duckdb/node-bindings';
-import { DuckDBLogicalType } from './DuckDBLogicalType';
-import { DuckDBTypeId } from './DuckDBTypeId';
-import { Json } from './Json';
-import { quotedIdentifier, quotedString } from './sql';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { DuckDBLogicalType } from "./DuckDBLogicalType";
+import { DuckDBTypeId } from "./DuckDBTypeId";
+import { Json } from "./Json";
+import { quotedIdentifier, quotedString } from "./sql";
 import {
   DuckDBDateValue,
   DuckDBTimestampMillisecondsValue,
@@ -13,7 +13,7 @@ import {
   DuckDBTimeTZValue,
   DuckDBTimeValue,
   DuckDBUUIDValue,
-} from './values';
+} from "./values";
 
 export abstract class BaseDuckDBType<T extends DuckDBTypeId> {
   public readonly typeId: T;
@@ -538,7 +538,7 @@ export class DuckDBEnumType extends BaseDuckDBType<DuckDBTypeId.ENUM> {
     return this.valueIndexes[value];
   }
   public toString(): string {
-    return `ENUM(${this.values.map(quotedString).join(', ')})`;
+    return `ENUM(${this.values.map(quotedString).join(", ")})`;
   }
   public override toLogicalType(): DuckDBLogicalType {
     const logicalType = DuckDBLogicalType.createEnum(this.values);
@@ -659,7 +659,7 @@ export class DuckDBStructType extends BaseDuckDBType<DuckDBTypeId.STRUCT> {
         `${quotedIdentifier(this.entryNames[i])} ${this.entryTypes[i]}`
       );
     }
-    return `STRUCT(${parts.join(', ')})`;
+    return `STRUCT(${parts.join(", ")})`;
   }
   public override toLogicalType(): DuckDBLogicalType {
     const logicalType = DuckDBLogicalType.createStruct(
@@ -675,7 +675,7 @@ export class DuckDBStructType extends BaseDuckDBType<DuckDBTypeId.STRUCT> {
     return {
       typeId: this.typeId,
       entryNames: [...this.entryNames],
-      entryTypes: this.entryTypes.map(t => t.toJson()),
+      entryTypes: this.entryTypes.map((t) => t.toJson()),
       ...(this.alias ? { alias: this.alias } : {}),
     };
   }
@@ -824,7 +824,7 @@ export class DuckDBUnionType extends BaseDuckDBType<DuckDBTypeId.UNION> {
         `${quotedIdentifier(this.memberTags[i])} ${this.memberTypes[i]}`
       );
     }
-    return `UNION(${parts.join(', ')})`;
+    return `UNION(${parts.join(", ")})`;
   }
   public override toLogicalType(): DuckDBLogicalType {
     const logicalType = DuckDBLogicalType.createUnion(
@@ -840,7 +840,7 @@ export class DuckDBUnionType extends BaseDuckDBType<DuckDBTypeId.UNION> {
     return {
       typeId: this.typeId,
       memberTags: [...this.memberTags],
-      memberTypes: this.memberTypes.map(t => t.toJson()),
+      memberTypes: this.memberTypes.map((t) => t.toJson()),
       ...(this.alias ? { alias: this.alias } : {}),
     };
   }
@@ -870,7 +870,7 @@ export class DuckDBTimeTZType extends BaseDuckDBType<DuckDBTypeId.TIME_TZ> {
     super(DuckDBTypeId.TIME_TZ, alias);
   }
   public toString(): string {
-    return 'TIME WITH TIME ZONE';
+    return "TIME WITH TIME ZONE";
   }
   public static readonly instance = new DuckDBTimeTZType();
   public static create(alias?: string): DuckDBTimeTZType {
@@ -890,7 +890,7 @@ export class DuckDBTimestampTZType extends BaseDuckDBType<DuckDBTypeId.TIMESTAMP
     super(DuckDBTypeId.TIMESTAMP_TZ, alias);
   }
   public toString(): string {
-    return 'TIMESTAMP WITH TIME ZONE';
+    return "TIMESTAMP WITH TIME ZONE";
   }
   public static readonly instance = new DuckDBTimestampTZType();
   public static create(alias?: string): DuckDBTimestampTZType {

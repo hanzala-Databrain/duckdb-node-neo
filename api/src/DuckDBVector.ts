@@ -1,6 +1,6 @@
-import duckdb from '@duckdb/node-bindings';
-import os from 'os';
-import { DuckDBLogicalType } from './DuckDBLogicalType';
+import duckdb from "@hanzala-databrain/node-bindings";
+import os from "os";
+import { DuckDBLogicalType } from "./DuckDBLogicalType";
 import {
   DuckDBArrayType,
   DuckDBBigIntType,
@@ -37,8 +37,8 @@ import {
   DuckDBUnionType,
   DuckDBVarCharType,
   DuckDBVarIntType,
-} from './DuckDBType';
-import { DuckDBTypeId } from './DuckDBTypeId';
+} from "./DuckDBType";
+import { DuckDBTypeId } from "./DuckDBTypeId";
 import {
   DuckDBArrayValue,
   DuckDBBitValue,
@@ -62,9 +62,9 @@ import {
   DuckDBValue,
   listValue,
   structValue,
-} from './values';
+} from "./values";
 
-const littleEndian = os.endianness() === 'LE';
+const littleEndian = os.endianness() === "LE";
 
 // function getInt8(dataView: DataView, offset: number): number {
 //   return dataView.getInt8(offset);
@@ -544,7 +544,7 @@ export abstract class DuckDBVector<TValue extends DuckDBValue = DuckDBValue> {
           }
         }
         throw new Error(
-          'DuckDBType has DECIMAL type id but is not an instance of DuckDBDecimalType'
+          "DuckDBType has DECIMAL type id but is not an instance of DuckDBDecimalType"
         );
       case DuckDBTypeId.TIMESTAMP_S:
         return DuckDBTimestampSecondsVector.fromRawVector(vector, itemCount);
@@ -587,14 +587,14 @@ export abstract class DuckDBVector<TValue extends DuckDBValue = DuckDBValue> {
           }
         }
         throw new Error(
-          'DuckDBType has ENUM type id but is not an instance of DuckDBEnumType'
+          "DuckDBType has ENUM type id but is not an instance of DuckDBEnumType"
         );
       case DuckDBTypeId.LIST:
         if (vectorType instanceof DuckDBListType) {
           return DuckDBListVector.fromRawVector(vectorType, vector, itemCount);
         }
         throw new Error(
-          'DuckDBType has LIST type id but is not an instance of DuckDBListType'
+          "DuckDBType has LIST type id but is not an instance of DuckDBListType"
         );
       case DuckDBTypeId.STRUCT:
         if (vectorType instanceof DuckDBStructType) {
@@ -605,21 +605,21 @@ export abstract class DuckDBVector<TValue extends DuckDBValue = DuckDBValue> {
           );
         }
         throw new Error(
-          'DuckDBType has STRUCT type id but is not an instance of DuckDBStructType'
+          "DuckDBType has STRUCT type id but is not an instance of DuckDBStructType"
         );
       case DuckDBTypeId.MAP:
         if (vectorType instanceof DuckDBMapType) {
           return DuckDBMapVector.fromRawVector(vectorType, vector, itemCount);
         }
         throw new Error(
-          'DuckDBType has MAP type id but is not an instance of DuckDBMapType'
+          "DuckDBType has MAP type id but is not an instance of DuckDBMapType"
         );
       case DuckDBTypeId.ARRAY:
         if (vectorType instanceof DuckDBArrayType) {
           return DuckDBArrayVector.fromRawVector(vectorType, vector, itemCount);
         }
         throw new Error(
-          'DuckDBType has ARRAY type id but is not an instance of DuckDBArrayType'
+          "DuckDBType has ARRAY type id but is not an instance of DuckDBArrayType"
         );
       case DuckDBTypeId.UUID:
         return DuckDBUUIDVector.fromRawVector(vector, itemCount);
@@ -628,7 +628,7 @@ export abstract class DuckDBVector<TValue extends DuckDBValue = DuckDBValue> {
           return DuckDBUnionVector.fromRawVector(vectorType, vector, itemCount);
         }
         throw new Error(
-          'DuckDBType has UNION type id but is not an instance of DuckDBUnionType'
+          "DuckDBType has UNION type id but is not an instance of DuckDBUnionType"
         );
       case DuckDBTypeId.BIT:
         return DuckDBBitVector.fromRawVector(vector, itemCount);
@@ -2738,8 +2738,7 @@ export class DuckDBListVector extends DuckDBVector<DuckDBListValue> {
     this.validity = validity;
     this.vector = vector;
     this.childData = childData;
-    this.itemOffset = itemOffset,
-    this._itemCount = itemCount;
+    (this.itemOffset = itemOffset), (this._itemCount = itemCount);
     this.itemCache = [];
   }
   static fromRawVector(
@@ -3028,7 +3027,7 @@ export class DuckDBMapVector extends DuckDBVector<DuckDBMapValue> {
   ): DuckDBMapVector {
     const listVectorType = new DuckDBListType(
       new DuckDBStructType(
-        ['key', 'value'],
+        ["key", "value"],
         [mapType.keyType, mapType.valueType]
       )
     );
@@ -3049,7 +3048,7 @@ export class DuckDBMapVector extends DuckDBVector<DuckDBMapValue> {
       return null;
     }
     if (!(itemVector instanceof DuckDBStructVector)) {
-      throw new Error('item in map list vector is not a struct');
+      throw new Error("item in map list vector is not a struct");
     }
     const entries: DuckDBMapEntry[] = [];
     const itemEntryCount = itemVector.itemCount;
@@ -3066,7 +3065,7 @@ export class DuckDBMapVector extends DuckDBVector<DuckDBMapValue> {
         itemIndex,
         listValue(
           value.entries.map((entry) =>
-            structValue({ 'key': entry.key, 'value': entry.value })
+            structValue({ key: entry.key, value: entry.value })
           )
         )
       );
@@ -3221,7 +3220,9 @@ export class DuckDBUUIDVector extends DuckDBVector<DuckDBUUIDValue> {
   }
   public override getItem(itemIndex: number): DuckDBUUIDValue | null {
     return this.validity.itemValid(itemIndex)
-      ? DuckDBUUIDValue.fromStoredHugeInt(getInt128(this.dataView, itemIndex * 16))
+      ? DuckDBUUIDValue.fromStoredHugeInt(
+          getInt128(this.dataView, itemIndex * 16)
+        )
       : null;
   }
   public override setItem(itemIndex: number, value: DuckDBUUIDValue | null) {
@@ -3270,7 +3271,7 @@ export class DuckDBUnionVector extends DuckDBVector<DuckDBUnionValue> {
     vector: duckdb.Vector,
     itemCount: number
   ): DuckDBUnionVector {
-    const entryNames: string[] = ['tag'];
+    const entryNames: string[] = ["tag"];
     const entryTypes: DuckDBType[] = [DuckDBUTinyIntType.instance];
     const memberCount = unionType.memberCount;
     for (let i = 0; i < memberCount; i++) {

@@ -1,8 +1,8 @@
-import duckdb from '@duckdb/node-bindings';
-import { DuckDBType } from './DuckDBType';
-import { DuckDBValueConverter } from './DuckDBValueConverter';
-import { DuckDBVector } from './DuckDBVector';
-import { DuckDBValue } from './values';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { DuckDBType } from "./DuckDBType";
+import { DuckDBValueConverter } from "./DuckDBValueConverter";
+import { DuckDBVector } from "./DuckDBVector";
+import { DuckDBValue } from "./values";
 
 export class DuckDBDataChunk {
   public readonly chunk: duckdb.DataChunk;

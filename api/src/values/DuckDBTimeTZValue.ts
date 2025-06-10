@@ -1,8 +1,8 @@
-import duckdb, { TimeTZ, TimeTZParts } from '@duckdb/node-bindings';
+import duckdb, { TimeTZ, TimeTZParts } from "@hanzala-databrain/node-bindings";
 import {
   getDuckDBTimeStringFromMicrosecondsInDay,
-  getOffsetStringFromSeconds
-} from '../conversion/dateTimeStringConversion';
+  getOffsetStringFromSeconds,
+} from "../conversion/dateTimeStringConversion";
 
 export type { TimeTZParts };
 

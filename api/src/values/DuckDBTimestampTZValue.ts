@@ -1,6 +1,9 @@
-import duckdb, { Timestamp, TimestampParts } from '@duckdb/node-bindings';
-import { getDuckDBTimestampStringFromMicroseconds } from '../conversion/dateTimeStringConversion';
-import { DuckDBTimestampValue } from './DuckDBTimestampValue';
+import duckdb, {
+  Timestamp,
+  TimestampParts,
+} from "@hanzala-databrain/node-bindings";
+import { getDuckDBTimestampStringFromMicroseconds } from "../conversion/dateTimeStringConversion";
+import { DuckDBTimestampValue } from "./DuckDBTimestampValue";
 
 export class DuckDBTimestampTZValue implements Timestamp {
   public static timezoneOffsetInMinutes: number =
@@ -46,8 +49,10 @@ export class DuckDBTimestampTZValue implements Timestamp {
   );
 }
 
-export function timestampTZValue(microsOrParts: bigint | TimestampParts): DuckDBTimestampTZValue {
-  if (typeof microsOrParts === 'bigint') {
+export function timestampTZValue(
+  microsOrParts: bigint | TimestampParts
+): DuckDBTimestampTZValue {
+  if (typeof microsOrParts === "bigint") {
     return new DuckDBTimestampTZValue(microsOrParts);
   }
   return DuckDBTimestampTZValue.fromParts(microsOrParts);

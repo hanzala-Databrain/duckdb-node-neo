@@ -1,15 +1,15 @@
-import duckdb from '@duckdb/node-bindings';
-import { DuckDBAppender } from './DuckDBAppender';
-import { DuckDBExtractedStatements } from './DuckDBExtractedStatements';
-import { DuckDBInstance } from './DuckDBInstance';
-import { DuckDBMaterializedResult } from './DuckDBMaterializedResult';
-import { DuckDBPendingResult } from './DuckDBPendingResult';
-import { DuckDBPreparedStatement } from './DuckDBPreparedStatement';
-import { DuckDBPreparedStatementWeakRefCollection } from './DuckDBPreparedStatementWeakRefCollection';
-import { DuckDBResult } from './DuckDBResult';
-import { DuckDBResultReader } from './DuckDBResultReader';
-import { DuckDBType } from './DuckDBType';
-import { DuckDBValue } from './values';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { DuckDBAppender } from "./DuckDBAppender";
+import { DuckDBExtractedStatements } from "./DuckDBExtractedStatements";
+import { DuckDBInstance } from "./DuckDBInstance";
+import { DuckDBMaterializedResult } from "./DuckDBMaterializedResult";
+import { DuckDBPendingResult } from "./DuckDBPendingResult";
+import { DuckDBPreparedStatement } from "./DuckDBPreparedStatement";
+import { DuckDBPreparedStatementWeakRefCollection } from "./DuckDBPreparedStatementWeakRefCollection";
+import { DuckDBResult } from "./DuckDBResult";
+import { DuckDBResultReader } from "./DuckDBResultReader";
+import { DuckDBType } from "./DuckDBType";
+import { DuckDBValue } from "./values";
 
 export class DuckDBConnection {
   private readonly connection: duckdb.Connection;

@@ -1,7 +1,7 @@
-import duckdb from '@duckdb/node-bindings';
-import { createResult } from './createResult';
-import { DuckDBResult } from './DuckDBResult';
-import { DuckDBResultReader } from './DuckDBResultReader';
+import duckdb from "@hanzala-databrain/node-bindings";
+import { createResult } from "./createResult";
+import { DuckDBResult } from "./DuckDBResult";
+import { DuckDBResultReader } from "./DuckDBResultReader";
 
 // Values match similar enum in C API.
 export enum DuckDBPendingResultState {

@@ -1,5 +1,5 @@
-import duckdb, { Decimal } from '@duckdb/node-bindings';
-import { stringFromDecimal } from '../conversion/stringFromDecimal';
+import duckdb, { Decimal } from "@hanzala-databrain/node-bindings";
+import { stringFromDecimal } from "../conversion/stringFromDecimal";
 
 export class DuckDBDecimalValue implements Decimal {
   /** Total number of decimal digits (including fractional digits) in represented number. */
@@ -30,14 +30,22 @@ export class DuckDBDecimalValue implements Decimal {
     return duckdb.decimal_to_double(this);
   }
 
-  public static fromDouble(double: number, width: number, scale: number): DuckDBDecimalValue {
+  public static fromDouble(
+    double: number,
+    width: number,
+    scale: number
+  ): DuckDBDecimalValue {
     const decimal = duckdb.double_to_decimal(double, width, scale);
     return new DuckDBDecimalValue(decimal.value, decimal.width, decimal.scale);
   }
 }
 
-export function decimalValue(value: bigint | number, width: number, scale: number): DuckDBDecimalValue {
-  if (typeof value === 'number') {
+export function decimalValue(
+  value: bigint | number,
+  width: number,
+  scale: number
+): DuckDBDecimalValue {
+  if (typeof value === "number") {
     return DuckDBDecimalValue.fromDouble(value, width, scale);
   }
   return new DuckDBDecimalValue(value, width, scale);
