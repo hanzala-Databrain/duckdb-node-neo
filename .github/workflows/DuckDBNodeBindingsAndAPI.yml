@@ -115,7 +115,7 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+          YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
 
       - name: Publish - Bindings
         if: ${{ inputs.publish }}
@@ -123,7 +123,7 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+          YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
 
       - name: Publish - API
         if: ${{ inputs.publish }}
@@ -131,7 +131,7 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+          YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
 
   linux_arm64:
     name: Linux arm64
@@ -141,7 +141,7 @@ jobs:
       TARGET_ARCH: arm64
       CC: aarch64-linux-gnu-gcc
       CXX: aarch64-linux-gnu-g++
-      YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+      YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
 
     steps:
       - name: Install aarch64 compilers
@@ -170,7 +170,7 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+          YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
 
   macos_arm64:
     name: Mac OS X arm64
@@ -212,7 +212,7 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+          YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
 
   macos_x64:
     name: Mac OS X x64
@@ -254,7 +254,7 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+          YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
 
   windows_x64:
     name: Windows x64
@@ -296,4 +296,4 @@ jobs:
         run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
-          YOUR_USERNAME: ${{ env.YOUR_USERNAME }}
+          YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
