@@ -80,13 +80,17 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.linux_x64 }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com/"
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-          registry-url: https://npm.pkg.github.com/
-          scope: "@hanzala-databrain"
 
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
@@ -149,13 +153,18 @@ jobs:
       - name: Install aarch64 compilers
         run: sudo apt-get update && sudo apt install binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com/"
 
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-          registry-url: https://npm.pkg.github.com/
-          scope: "@hanzala-databrain"
 
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
@@ -181,13 +190,18 @@ jobs:
     runs-on: macos-latest
     if: ${{ inputs.macos_arm64 }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com/"
 
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-          registry-url: https://npm.pkg.github.com/
-          scope: "@hanzala-databrain"
 
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
@@ -225,13 +239,17 @@ jobs:
     runs-on: macos-13
     if: ${{ inputs.macos_x64 }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com/"
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-          registry-url: https://npm.pkg.github.com/
-          scope: "@hanzala-databrain"
 
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
@@ -269,13 +287,18 @@ jobs:
     runs-on: windows-latest
     if: ${{ inputs.windows_x64 }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com/"
 
       - uses: pnpm/action-setup@v3
         with:
           version: 9
-          registry-url: https://npm.pkg.github.com/
-          scope: "@hanzala-databrain"
 
       - name: Workspace - Install
         run: pnpm install --ignore-scripts
