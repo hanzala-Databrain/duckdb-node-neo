@@ -112,7 +112,7 @@ jobs:
       - name: Publish - Bindings - Linux x64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@hanzala-databrain/node-bindings-linux-x64
-        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
+        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
           YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
@@ -120,7 +120,7 @@ jobs:
       - name: Publish - Bindings
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@hanzala-databrain/node-bindings
-        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
+        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
           YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
@@ -128,7 +128,7 @@ jobs:
       - name: Publish - API
         if: ${{ inputs.publish }}
         working-directory: api/pkgs/@hanzala-databrain/node-api
-        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
+        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
           YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
@@ -167,7 +167,7 @@ jobs:
       - name: Publish - Bindings - Linux arm64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@hanzala-databrain/node-bindings-linux-arm64
-        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
+        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
           YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
@@ -209,7 +209,7 @@ jobs:
       - name: Publish - Bindings - Darwin arm64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@hanzala-databrain/node-bindings-darwin-arm64
-        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
+        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
           YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
@@ -251,7 +251,7 @@ jobs:
       - name: Publish - Bindings - Darwin x64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@hanzala-databrain/node-bindings-darwin-x64
-        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
+        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
           YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
@@ -293,7 +293,7 @@ jobs:
       - name: Publish - Bindings - Win32 x64
         if: ${{ inputs.publish }}
         working-directory: bindings/pkgs/@hanzala-databrain/node-bindings-win32-x64
-        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --access public
+        run: pnpm publish ${{ inputs.publish_dry_run && '--dry-run' || '' }} --publish-branch ${{ github.ref_name }} --scope=@{{ secrets.YOUR_USERNAME }} --registry=https://npm.pkg.github.com
         env:
           NPM_AUTH_TOKEN: ${{ secrets.DUCKDB_NPM_TOKEN }}
           YOUR_USERNAME: ${{ secrets.YOUR_USERNAME }}
